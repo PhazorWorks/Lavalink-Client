@@ -133,13 +133,6 @@ public class JdaLavalink extends Lavalink<JdaLink> implements EventListener {
             if (link == null) return;
 
             link.removeConnection();
-        } else if (event instanceof VoiceChannelDeleteEvent) {
-            if (((VoiceChannelDeleteEvent) event).getChannel().getType() == ChannelType.VOICE) {
-                JdaLink link = getLinksMap().get(((VoiceChannelDeleteEvent) event).getGuild().getId());
-                if (link == null || !((VoiceChannelDeleteEvent) event).getChannel().getId().equals(link.getLastChannel())) return;
-
-                link.removeConnection();
-            }
         }
     }
 
