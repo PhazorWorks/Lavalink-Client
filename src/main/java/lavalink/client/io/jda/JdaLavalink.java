@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.events.ReconnectedEvent;
 import net.dv8tion.jda.api.events.channel.voice.*;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
+import net.dv8tion.jda.internal.handle.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -133,13 +134,13 @@ public class JdaLavalink extends Lavalink<JdaLink> implements EventListener {
 
             link.removeConnection();
         } else if (event instanceof VoiceChannelDeleteEvent) {
-
+            if (((VoiceChannelDeleteEvent) event).getChannel().getType() == ChannelType.VOICE) {
                 JdaLink link = getLinksMap().get(((VoiceChannelDeleteEvent) event).getGuild().getId());
                 if (link == null || !((VoiceChannelDeleteEvent) event).getChannel().getId().equals(link.getLastChannel())) return;
 
                 link.removeConnection();
             }
-
+        }
     }
 
     @Override
